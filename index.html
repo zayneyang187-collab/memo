@@ -33,24 +33,26 @@
         background:
           radial-gradient(1200px 600px at 10% -10%, #e6f7f2 0%, transparent 60%),
           radial-gradient(900px 500px at 110% 10%, #eaf3ff 0%, transparent 55%),
-          var(--bg);
+          linear-gradient(180deg, #f7faf8 0%, #eef5f2 100%);
         min-height: 100vh;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: center;
-        padding: 24px;
+        padding: 36px 24px 60px;
       }
 
       .wrap {
-        width: min(720px, 100%);
+        width: min(1100px, 100%);
       }
 
       .card {
-        background: var(--card);
+        background: linear-gradient(180deg, #ffffff 0%, #f6faf8 100%);
         border-radius: var(--radius);
         padding: 28px;
-        box-shadow: var(--shadow);
-        border: 1px solid #eef2f1;
+        box-shadow:
+          0 20px 40px rgba(31, 42, 42, 0.12),
+          0 2px 6px rgba(31, 42, 42, 0.06);
+        border: 1px solid #e9f0ed;
       }
 
       h1 {
@@ -62,24 +64,42 @@
 
       .subtitle {
         color: var(--muted);
-        margin: 0 0 22px;
-        font-size: 14px;
+        margin: 0 0 24px;
+        font-size: 13px;
+        letter-spacing: 0.3px;
       }
 
       .input-row {
         display: grid;
         grid-template-columns: 1fr auto;
         gap: 12px;
-        margin-bottom: 22px;
+        margin-bottom: 0;
+      }
+
+      .input-panel {
+        background: linear-gradient(180deg, #ffffff 0%, #f5faf7 100%);
+        border: 1px solid #e6efec;
+        border-radius: 16px;
+        padding: 16px;
+        box-shadow:
+          0 8px 16px rgba(31, 42, 42, 0.08),
+          inset 0 1px 0 rgba(255, 255, 255, 0.7);
+      }
+
+      .hint {
+        margin: 10px 0 0;
+        font-size: 12px;
+        color: var(--muted);
       }
 
       .input-row input {
         padding: 14px 16px;
         border-radius: 12px;
-        border: 1px solid #dfe7e5;
+        border: 1px solid #dbe6e3;
         font-size: 15px;
         outline: none;
-        background: #fbfdfc;
+        background: linear-gradient(180deg, #ffffff 0%, #f7fbf9 100%);
+        box-shadow: inset 0 2px 4px rgba(31, 42, 42, 0.06);
         transition: box-shadow 0.2s, border-color 0.2s;
       }
 
@@ -102,9 +122,11 @@
       }
 
       .btn-add {
-        background: var(--primary);
+        background: linear-gradient(180deg, #45c6aa 0%, #2fb99b 100%);
         color: #fff;
-        box-shadow: 0 8px 16px rgba(55, 184, 157, 0.25);
+        box-shadow:
+          0 10px 18px rgba(55, 184, 157, 0.28),
+          inset 0 1px 0 rgba(255, 255, 255, 0.5);
       }
 
       .btn-add:hover {
@@ -116,6 +138,146 @@
         gap: 12px;
       }
 
+      .top-grid {
+        display: grid;
+        grid-template-columns: 1.3fr 1fr;
+        gap: 18px;
+        margin-bottom: 22px;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .stat-card {
+        background: linear-gradient(180deg, #ffffff 0%, #f3f8f6 100%);
+        border: 1px solid #e6efec;
+        border-radius: 14px;
+        padding: 12px;
+        box-shadow:
+          0 6px 12px rgba(31, 42, 42, 0.08),
+          inset 0 1px 0 rgba(255, 255, 255, 0.7);
+      }
+
+      .stat-top {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 6px;
+      }
+
+      .stat-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #9aa8a8;
+      }
+
+      .dot-pending {
+        background: #37b89d;
+      }
+
+      .dot-done {
+        background: #48b17f;
+      }
+
+      .dot-deleted {
+        background: #ff6b6b;
+      }
+
+      .stat-label {
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .stat-value {
+        font-size: 22px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+      }
+
+      .section {
+        margin-top: 22px;
+        padding: 14px;
+        border-radius: 16px;
+        background: linear-gradient(180deg, #f8fbfa 0%, #f3f8f6 100%);
+        border: 1px solid #e7efeb;
+        box-shadow: inset 0 1px 2px rgba(31, 42, 42, 0.05);
+      }
+
+      .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0 0 10px;
+        gap: 10px;
+      }
+
+      .section-title-row {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .section-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--muted);
+        margin: 0;
+        letter-spacing: 0.5px;
+      }
+
+      .btn-toggle {
+        width: 24px;
+        height: 24px;
+        border-radius: 8px;
+        border: 1px solid #dbe6e3;
+        background: linear-gradient(180deg, #ffffff 0%, #f1f7f4 100%);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        box-shadow:
+          0 4px 8px rgba(31, 42, 42, 0.12),
+          inset 0 1px 0 rgba(255, 255, 255, 0.7);
+      }
+
+      .btn-toggle::before {
+        content: "";
+        width: 0;
+        height: 0;
+        border-left: 6px solid #2f4f4f;
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        transform: rotate(90deg);
+        transition: transform 0.2s;
+      }
+
+      .btn-toggle.is-collapsed::before {
+        transform: rotate(0deg);
+      }
+
+      .list.is-collapsed {
+        display: none;
+      }
+
+      /* 折叠状态提示：点击按钮后短暂显示 */
+      .toggle-status {
+        font-size: 12px;
+        color: var(--muted);
+        opacity: 0;
+        transform: translateY(-2px);
+        transition: opacity 0.2s, transform 0.2s;
+        pointer-events: none;
+      }
+
+      .section-header.show-status .toggle-status {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
       .item {
         display: grid;
         grid-template-columns: 1fr auto;
@@ -123,8 +285,11 @@
         align-items: center;
         padding: 14px 16px;
         border-radius: 14px;
-        background: #f7faf9;
-        border: 1px solid #eef2f1;
+        background: linear-gradient(180deg, #ffffff 0%, #f2f7f5 100%);
+        border: 1px solid #e6efec;
+        box-shadow:
+          0 4px 10px rgba(31, 42, 42, 0.08),
+          inset 0 1px 0 rgba(255, 255, 255, 0.6);
       }
 
       .item-title {
@@ -150,19 +315,35 @@
       }
 
       .btn-done {
-        background: #e9f7f3;
+        background: linear-gradient(180deg, #e9f7f3 0%, #dff3ed 100%);
         color: #1f7f6b;
         border: 1px solid #cdebe3;
       }
 
+      .btn-back {
+        background: linear-gradient(180deg, #eef6ff 0%, #e1efff 100%);
+        color: #2b6cb0;
+        border: 1px solid #cfe2ff;
+      }
+
+      .btn-restore {
+        background: linear-gradient(180deg, #f0f7f4 0%, #e5f2ec 100%);
+        color: #2f855a;
+        border: 1px solid #d6efe4;
+      }
+
       .btn-del {
-        background: #fff1f1;
+        background: linear-gradient(180deg, #fff1f1 0%, #ffe4e4 100%);
         color: #c84545;
         border: 1px solid #ffd4d4;
       }
 
       /* 移动端适配：按钮在窄屏上换行显示 */
       @media (max-width: 520px) {
+        .top-grid {
+          grid-template-columns: 1fr;
+        }
+
         .input-row {
           grid-template-columns: 1fr;
         }
@@ -183,14 +364,67 @@
         <h1>我的待办清单</h1>
         <p class="subtitle">记录今天的小目标，让完成更有成就感</p>
 
-        <!-- 输入区域：仅做展示，无功能 -->
-        <div class="input-row">
-          <input id="task-input" type="text" placeholder="写下一个新任务..." />
-          <button id="add-button" class="btn btn-add">添加</button>
+        <div class="top-grid">
+          <!-- 输入区域 -->
+          <div class="input-panel">
+            <div class="input-row">
+              <input id="task-input" type="text" placeholder="写下一个新任务..." />
+              <button id="add-button" class="btn btn-add">添加</button>
+            </div>
+            <p class="hint">按回车也可以快速添加任务</p>
+          </div>
+
+          <!-- 任务统计 -->
+          <div class="stats">
+            <div class="stat-card">
+              <div class="stat-top">
+                <span class="stat-dot"></span>
+                <span class="stat-label">全部任务</span>
+              </div>
+              <div id="count-total" class="stat-value">0</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-top">
+                <span class="stat-dot dot-pending"></span>
+                <span class="stat-label">待完成</span>
+              </div>
+              <div id="count-pending" class="stat-value">0</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-top">
+                <span class="stat-dot dot-done"></span>
+                <span class="stat-label">已完成</span>
+              </div>
+              <div id="count-done" class="stat-value">0</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-top">
+                <span class="stat-dot dot-deleted"></span>
+                <span class="stat-label">已删除</span>
+              </div>
+              <div id="count-deleted" class="stat-value">0</div>
+            </div>
+          </div>
         </div>
 
-        <!-- 任务列表：示例数据 -->
-        <div id="task-list" class="list">
+        <!-- 待完成：示例数据 -->
+        <div class="section">
+          <div class="section-header">
+            <div class="section-title-row">
+              <button
+                class="btn btn-toggle"
+                type="button"
+                data-target="pending-list"
+                aria-label="折叠或展开"
+              ></button>
+              <h2 class="section-title">待完成</h2>
+            </div>
+            <span class="toggle-status">已展开</span>
+          </div>
+          <div id="pending-list" class="list">
           <div class="item">
             <div class="item-title">阅读 30 分钟，做 3 条读书笔记</div>
             <div class="actions">
@@ -215,16 +449,135 @@
             </div>
           </div>
         </div>
+        </div>
+
+        <!-- 已完成 -->
+        <div class="section">
+          <div class="section-header">
+            <div class="section-title-row">
+              <button
+                class="btn btn-toggle"
+                type="button"
+                data-target="done-list"
+                aria-label="折叠或展开"
+              ></button>
+              <h2 class="section-title">已完成</h2>
+            </div>
+            <span class="toggle-status">已展开</span>
+          </div>
+          <div id="done-list" class="list"></div>
+        </div>
+
+        <!-- 已删除 -->
+        <div class="section">
+          <div class="section-header">
+            <div class="section-title-row">
+              <button
+                class="btn btn-toggle is-collapsed"
+                type="button"
+                data-target="deleted-list"
+                aria-label="折叠或展开"
+              ></button>
+              <h2 class="section-title">已删除</h2>
+            </div>
+            <span class="toggle-status">已折叠</span>
+          </div>
+          <div id="deleted-list" class="list is-collapsed"></div>
+        </div>
       </section>
     </main>
     <script>
       // 获取页面上的关键元素
       const taskInput = document.querySelector("#task-input");
       const addButton = document.querySelector("#add-button");
-      const taskList = document.querySelector("#task-list");
+      const pendingList = document.querySelector("#pending-list");
+      const doneList = document.querySelector("#done-list");
+      const deletedList = document.querySelector("#deleted-list");
+      const totalCountEl = document.querySelector("#count-total");
+      const pendingCountEl = document.querySelector("#count-pending");
+      const doneCountEl = document.querySelector("#count-done");
+      const deletedCountEl = document.querySelector("#count-deleted");
 
-      // 点击“完成/删除”按钮时，给当前任务加删除线
-      taskList.addEventListener("click", (event) => {
+      // 更新统计数字
+      const updateStats = () => {
+        const pendingCount = pendingList.children.length;
+        const doneCount = doneList.children.length;
+        const deletedCount = deletedList.children.length;
+        const totalCount = pendingCount + doneCount + deletedCount;
+
+        totalCountEl.textContent = totalCount;
+        pendingCountEl.textContent = pendingCount;
+        doneCountEl.textContent = doneCount;
+        deletedCountEl.textContent = deletedCount;
+      };
+
+      // 折叠/展开列表
+      document.querySelectorAll(".btn-toggle").forEach((button) => {
+        button.addEventListener("click", () => {
+          const targetId = button.getAttribute("data-target");
+          const listEl = document.getElementById(targetId);
+          const headerEl = button.closest(".section-header");
+          const statusEl = headerEl
+            ? headerEl.querySelector(".toggle-status")
+            : null;
+
+          if (!listEl) {
+            return;
+          }
+
+          listEl.classList.toggle("is-collapsed");
+          button.classList.toggle("is-collapsed");
+
+          // 点击后短暂显示当前状态
+          if (headerEl && statusEl) {
+            const isCollapsed = listEl.classList.contains("is-collapsed");
+            statusEl.textContent = isCollapsed ? "已折叠" : "已展开";
+            headerEl.classList.add("show-status");
+
+            if (headerEl._statusTimer) {
+              clearTimeout(headerEl._statusTimer);
+            }
+
+            headerEl._statusTimer = setTimeout(() => {
+              headerEl.classList.remove("show-status");
+            }, 1500);
+          }
+        });
+      });
+
+      // 根据任务状态，更新按钮文字与样式
+      const setActionsByState = (taskItem, state) => {
+        const actionArea = taskItem.querySelector(".actions");
+        actionArea.innerHTML = "";
+
+        const createButton = (text, className) => {
+          const btn = document.createElement("button");
+          btn.className = `btn btn-small ${className}`;
+          btn.textContent = text;
+          return btn;
+        };
+
+        if (state === "pending") {
+          actionArea.appendChild(createButton("完成", "btn-done"));
+          actionArea.appendChild(createButton("删除", "btn-del"));
+          taskItem.classList.remove("is-done");
+        }
+
+        if (state === "done") {
+          actionArea.appendChild(createButton("待完成", "btn-back"));
+          actionArea.appendChild(createButton("删除", "btn-del"));
+          taskItem.classList.add("is-done");
+        }
+
+        if (state === "deleted") {
+          actionArea.appendChild(createButton("待完成", "btn-back"));
+          actionArea.appendChild(createButton("恢复到完成", "btn-restore"));
+          taskItem.classList.add("is-done");
+        }
+      };
+
+      // 点击按钮时，移动任务到对应列表
+      document.addEventListener("click", (event) => {
         const target = event.target;
 
         // 只处理按钮点击
@@ -232,21 +585,48 @@
           return;
         }
 
-        // 如果点击的是“完成”或“删除”按钮
-        if (
-          target.classList.contains("btn-done") ||
-          target.classList.contains("btn-del")
-        ) {
-          const taskItem = target.closest(".item");
-          if (taskItem) {
-            // 再次点击时取消删除线
-            taskItem.classList.toggle("is-done");
-          }
+        const taskItem = target.closest(".item");
+        if (!taskItem) {
+          return;
+        }
+
+        let hasUpdated = false;
+
+        if (target.classList.contains("btn-done")) {
+          // 完成任务：移动到已完成
+          doneList.appendChild(taskItem);
+          setActionsByState(taskItem, "done");
+          hasUpdated = true;
+        }
+
+        if (target.classList.contains("btn-del")) {
+          // 删除任务：移动到已删除
+          deletedList.appendChild(taskItem);
+          setActionsByState(taskItem, "deleted");
+          hasUpdated = true;
+        }
+
+        if (target.classList.contains("btn-back")) {
+          // 回到待完成
+          pendingList.appendChild(taskItem);
+          setActionsByState(taskItem, "pending");
+          hasUpdated = true;
+        }
+
+        if (target.classList.contains("btn-restore")) {
+          // 从已删除恢复到已完成
+          doneList.appendChild(taskItem);
+          setActionsByState(taskItem, "done");
+          hasUpdated = true;
+        }
+
+        if (hasUpdated) {
+          updateStats();
         }
       });
 
       // 点击“添加”按钮时，创建一个新的任务条目
-      addButton.addEventListener("click", () => {
+      const addTask = () => {
         // 去掉首尾空格，避免只输入空白
         const taskText = taskInput.value.trim();
 
@@ -285,12 +665,26 @@
         taskItem.appendChild(actionArea);
 
         // 把新任务加入列表
-        taskList.appendChild(taskItem);
+        pendingList.appendChild(taskItem);
 
         // 清空输入框，方便继续输入
         taskInput.value = "";
         taskInput.focus();
+
+        updateStats();
+      };
+
+      addButton.addEventListener("click", addTask);
+
+      // 在输入框按回车键时，也能添加任务
+      taskInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          addTask();
+        }
       });
+
+      // 初始化统计
+      updateStats();
     </script>
   </body>
 </html>
