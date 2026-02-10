@@ -497,6 +497,7 @@
       const pendingCountEl = document.querySelector("#count-pending");
       const doneCountEl = document.querySelector("#count-done");
       const deletedCountEl = document.querySelector("#count-deleted");
+      const STORAGE_KEY = "todo_tasks_v1";
 
       // 更新统计数字
       const updateStats = () => {
@@ -576,6 +577,84 @@
         }
       };
 
+      // 创建任务元素（方便复用）
+      const createTaskItem = (text, state) => {
+        const taskItem = document.createElement("div");
+        taskItem.className = "item";
+
+        const taskTitle = document.createElement("div");
+        taskTitle.className = "item-title";
+        taskTitle.textContent = text;
+
+        const actionArea = document.createElement("div");
+        actionArea.className = "actions";
+
+        taskItem.appendChild(taskTitle);
+        taskItem.appendChild(actionArea);
+        setActionsByState(taskItem, state);
+
+        return taskItem;
+      };
+
+      // 保存任务到本地存储（刷新/重启也保留）
+      const saveTasks = () => {
+        const getTasksFromList = (listEl, state) =>
+          Array.from(listEl.querySelectorAll(".item"))
+            .map((item) => {
+              const titleEl = item.querySelector(".item-title");
+              return {
+                text: titleEl ? titleEl.textContent.trim() : "",
+                state,
+              };
+            })
+            .filter((task) => task.text !== "");
+
+        const tasks = [
+          ...getTasksFromList(pendingList, "pending"),
+          ...getTasksFromList(doneList, "done"),
+          ...getTasksFromList(deletedList, "deleted"),
+        ];
+
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+      };
+
+      // 从本地存储读取任务
+      const loadTasks = () => {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) {
+          // 第一次访问：保留示例任务，并保存一份
+          saveTasks();
+          return;
+        }
+
+        try {
+          const tasks = JSON.parse(raw);
+          if (!Array.isArray(tasks)) {
+            return;
+          }
+
+          // 先清空三类列表，再重建
+          pendingList.innerHTML = "";
+          doneList.innerHTML = "";
+          deletedList.innerHTML = "";
+
+          tasks.forEach((task) => {
+            const state = task.state || "pending";
+            const item = createTaskItem(task.text, state);
+
+            if (state === "done") {
+              doneList.appendChild(item);
+            } else if (state === "deleted") {
+              deletedList.appendChild(item);
+            } else {
+              pendingList.appendChild(item);
+            }
+          });
+        } catch {
+          // 解析失败时不影响页面使用
+        }
+      };
+
       // 点击按钮时，移动任务到对应列表
       document.addEventListener("click", (event) => {
         const target = event.target;
@@ -622,6 +701,7 @@
 
         if (hasUpdated) {
           updateStats();
+          saveTasks();
         }
       });
 
@@ -635,34 +715,8 @@
           return;
         }
 
-        // 创建任务容器
-        const taskItem = document.createElement("div");
-        taskItem.className = "item";
-
-        // 创建任务文字
-        const taskTitle = document.createElement("div");
-        taskTitle.className = "item-title";
-        taskTitle.textContent = taskText;
-
-        // 创建按钮区域
-        const actionArea = document.createElement("div");
-        actionArea.className = "actions";
-
-        // 创建“完成”按钮
-        const doneButton = document.createElement("button");
-        doneButton.className = "btn btn-small btn-done";
-        doneButton.textContent = "完成";
-
-        // 创建“删除”按钮
-        const deleteButton = document.createElement("button");
-        deleteButton.className = "btn btn-small btn-del";
-        deleteButton.textContent = "删除";
-
-        // 组装结构：按钮加入按钮区域，文字和按钮区域加入任务
-        actionArea.appendChild(doneButton);
-        actionArea.appendChild(deleteButton);
-        taskItem.appendChild(taskTitle);
-        taskItem.appendChild(actionArea);
+        // 创建任务元素（默认待完成）
+        const taskItem = createTaskItem(taskText, "pending");
 
         // 把新任务加入列表
         pendingList.appendChild(taskItem);
@@ -672,6 +726,7 @@
         taskInput.focus();
 
         updateStats();
+        saveTasks();
       };
 
       addButton.addEventListener("click", addTask);
@@ -683,7 +738,8 @@
         }
       });
 
-      // 初始化统计
+      // 初始化：读取本地数据并更新统计
+      loadTasks();
       updateStats();
     </script>
   </body>
