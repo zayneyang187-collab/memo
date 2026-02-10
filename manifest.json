@@ -1,0 +1,17 @@
+{
+  "name": "我的待办清单",
+  "short_name": "待办",
+  "description": "简洁的个人待办清单",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7faf8",
+  "theme_color": "#37b89d",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
