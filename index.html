@@ -4,6 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>我的待办清单</title>
+    <meta name="theme-color" content="#37b89d" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
     <style>
       /* 引入字体：标题更有辨识度，正文清爽易读 */
       @import url("https://fonts.googleapis.com/css2?family=Karla:wght@400;600&family=ZCOOL+KuaiLe&display=swap");
@@ -176,7 +179,7 @@
       }
 
       .dot-pending {
-        background: #37b89d;
+        background: #f2b97b;
       }
 
       .dot-done {
@@ -202,9 +205,52 @@
         margin-top: 22px;
         padding: 14px;
         border-radius: 16px;
-        background: linear-gradient(180deg, #f8fbfa 0%, #f3f8f6 100%);
-        border: 1px solid #e7efeb;
-        box-shadow: inset 0 1px 2px rgba(31, 42, 42, 0.05);
+        background: rgba(255, 255, 255, 0.65);
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        box-shadow:
+          0 10px 24px rgba(31, 42, 42, 0.08),
+          inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(8px);
+      }
+
+      /* 三个列表分区配色 */
+      .section.section-pending {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 245, 233, 0.9) 0%,
+          rgba(255, 232, 206, 0.75) 100%
+        );
+        border-color: rgba(244, 208, 168, 0.9);
+      }
+
+      .section.section-done {
+        background: linear-gradient(
+          180deg,
+          rgba(234, 248, 241, 0.9) 0%,
+          rgba(215, 239, 228, 0.75) 100%
+        );
+        border-color: rgba(191, 225, 210, 0.9);
+      }
+
+      .section.section-deleted {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 239, 239, 0.9) 0%,
+          rgba(252, 220, 220, 0.75) 100%
+        );
+        border-color: rgba(239, 199, 199, 0.9);
+      }
+
+      .section.section-pending .section-title {
+        color: #9a6a2b;
+      }
+
+      .section.section-done .section-title {
+        color: #2f855a;
+      }
+
+      .section.section-deleted .section-title {
+        color: #a13a3a;
       }
 
       .section-header {
@@ -285,11 +331,40 @@
         align-items: center;
         padding: 14px 16px;
         border-radius: 14px;
-        background: linear-gradient(180deg, #ffffff 0%, #f2f7f5 100%);
-        border: 1px solid #e6efec;
+        background: linear-gradient(180deg, #ffffff 0%, #f6faf8 100%);
+        border: 1px solid #e5efec;
         box-shadow:
           0 4px 10px rgba(31, 42, 42, 0.08),
           inset 0 1px 0 rgba(255, 255, 255, 0.6);
+        position: relative;
+      }
+
+      /* 分区内事项背景与色条协调 */
+      .section.section-pending .item {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.98) 0%,
+          rgba(255, 246, 235, 0.95) 100%
+        );
+        border-color: rgba(244, 214, 180, 0.9);
+      }
+
+      .section.section-done .item {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.98) 0%,
+          rgba(238, 249, 244, 0.95) 100%
+        );
+        border-color: rgba(207, 232, 221, 0.9);
+      }
+
+      .section.section-deleted .item {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.98) 0%,
+          rgba(255, 241, 241, 0.95) 100%
+        );
+        border-color: rgba(238, 198, 198, 0.9);
       }
 
       .item-title {
@@ -297,8 +372,18 @@
         line-height: 1.4;
       }
 
-      /* 已完成/已删除的视觉状态：加删除线、变淡 */
+      /* 已完成：不加删除线，颜色更清爽 */
+      .item.is-done {
+        border-color: #cfe9df;
+        background: linear-gradient(180deg, #f4fbf8 0%, #e9f6f0 100%);
+      }
+
       .item.is-done .item-title {
+        color: var(--text);
+      }
+
+      /* 已删除：保留删除线与变淡 */
+      .item.is-deleted .item-title {
         text-decoration: line-through;
         color: var(--muted);
       }
@@ -411,7 +496,7 @@
         </div>
 
         <!-- 待完成：示例数据 -->
-        <div class="section">
+        <div class="section section-pending">
           <div class="section-header">
             <div class="section-title-row">
               <button
@@ -452,7 +537,7 @@
         </div>
 
         <!-- 已完成 -->
-        <div class="section">
+        <div class="section section-done">
           <div class="section-header">
             <div class="section-title-row">
               <button
@@ -469,7 +554,7 @@
         </div>
 
         <!-- 已删除 -->
-        <div class="section">
+        <div class="section section-deleted">
           <div class="section-header">
             <div class="section-title-row">
               <button
@@ -562,18 +647,21 @@
           actionArea.appendChild(createButton("完成", "btn-done"));
           actionArea.appendChild(createButton("删除", "btn-del"));
           taskItem.classList.remove("is-done");
+          taskItem.classList.remove("is-deleted");
         }
 
         if (state === "done") {
           actionArea.appendChild(createButton("待完成", "btn-back"));
           actionArea.appendChild(createButton("删除", "btn-del"));
           taskItem.classList.add("is-done");
+          taskItem.classList.remove("is-deleted");
         }
 
         if (state === "deleted") {
           actionArea.appendChild(createButton("待完成", "btn-back"));
           actionArea.appendChild(createButton("恢复到完成", "btn-restore"));
-          taskItem.classList.add("is-done");
+          taskItem.classList.remove("is-done");
+          taskItem.classList.add("is-deleted");
         }
       };
 
@@ -741,6 +829,14 @@
       // 初始化：读取本地数据并更新统计
       loadTasks();
       updateStats();
+    </script>
+    <script>
+      // 注册 Service Worker，让页面可离线使用
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("./sw.js");
+        });
+      }
     </script>
   </body>
 </html>
