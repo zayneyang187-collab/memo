@@ -1,7 +1,9 @@
-const CACHE_NAME = "todo-cache-v1";
+const CACHE_NAME = "todo-cache-v2";
 const ASSETS = [
   "./",
   "./index.html",
+  "./styles.css",
+  "./app.js",
   "./manifest.json",
   "./icon.svg",
   "./sw.js"
