@@ -108,8 +108,10 @@ const updateScale = () => {
   const baseWidth = 1100;
   const horizontalPadding = 48; // body 左右 padding 24 * 2
   const available = Math.max(320, window.innerWidth - horizontalPadding);
-  const scale = Math.min(1, Math.max(0.78, available / baseWidth));
-  document.documentElement.style.setProperty("--ui-scale", scale.toFixed(3));
+  const scale = Math.min(1, Math.max(0.7, available / baseWidth));
+  const fixed = scale.toFixed(3);
+  document.documentElement.style.setProperty("--ui-scale", fixed);
+  document.body.style.zoom = fixed;
 };
 
 // 轻提示：任务添加成功
@@ -545,7 +547,7 @@ const buildReport = () => {
   if (doneTasks.length === 0) {
     lines.push("- 暂无");
   } else {
-    doneTasks.forEach((t, idx) => lines.push(`- ${idx + 1}. ${t.text}`));
+    doneTasks.forEach((t, idx) => lines.push(` ${idx + 1}. ${t.text}`));
   }
 
   lines.push("");
@@ -553,7 +555,7 @@ const buildReport = () => {
   if (pendingTasks.length === 0) {
     lines.push("- 暂无");
   } else {
-    pendingTasks.forEach((t, idx) => lines.push(`- ${idx + 1}. ${t.text}`));
+    pendingTasks.forEach((t, idx) => lines.push(` ${idx + 1}. ${t.text}`));
   }
 
   const reportText = lines.join("\n");
@@ -563,7 +565,7 @@ const buildReport = () => {
     "要求：",
     "1. 保持原意，不遗漏任务信息。",
     "2. 语气自然、清晰、结构分明。",
-    "3. 适合直接发送给团队/上级。",
+    "3. 适合直接发送给团队。",
     "",
     `范围：${rangeText}`,
     `完成任务：${doneTasks.length} 项`,
