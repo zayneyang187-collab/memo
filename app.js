@@ -107,11 +107,13 @@ const updateReportButton = () => {
 const updateScale = () => {
   const baseWidth = 1100;
   const horizontalPadding = 48; // body 左右 padding 24 * 2
-  const available = Math.max(320, window.innerWidth - horizontalPadding);
-  const scale = Math.min(1, Math.max(0.7, available / baseWidth));
+  const available = Math.max(360, window.innerWidth - horizontalPadding);
+  const ratio = Math.min(1, available / baseWidth);
+  // 缩放采用缓降曲线，保证字体在缩小后仍可清晰阅读
+  const eased = Math.pow(ratio, 0.85);
+  const scale = Math.min(1, Math.max(0.88, eased));
   const fixed = scale.toFixed(3);
   document.documentElement.style.setProperty("--ui-scale", fixed);
-  document.body.style.zoom = fixed;
 };
 
 // 轻提示：任务添加成功

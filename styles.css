@@ -40,7 +40,6 @@ body {
   transform: scale(var(--ui-scale));
   transform-origin: top center;
   transition: transform 0.15s ease;
-  zoom: var(--ui-scale);
 }
 
 .card {
