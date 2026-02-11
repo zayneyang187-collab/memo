@@ -103,6 +103,15 @@ const updateReportButton = () => {
   }
 };
 
+// 根据窗口宽度缩放整体内容，缩小时也能完整看到
+const updateScale = () => {
+  const baseWidth = 1100;
+  const horizontalPadding = 48; // body 左右 padding 24 * 2
+  const available = Math.max(320, window.innerWidth - horizontalPadding);
+  const scale = Math.min(1, Math.max(0.78, available / baseWidth));
+  document.documentElement.style.setProperty("--ui-scale", scale.toFixed(3));
+};
+
 // 轻提示：任务添加成功
 const showToast = (message) => {
   toast.textContent = message;
@@ -685,6 +694,8 @@ reportCopyAiButton.addEventListener("click", () => {
 // 初始化
 loadTasks();
 renderAll();
+updateScale();
+window.addEventListener("resize", updateScale);
 
 // 注册 Service Worker，让页面可离线使用
 if ("serviceWorker" in navigator) {

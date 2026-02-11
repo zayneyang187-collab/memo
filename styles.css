@@ -13,6 +13,7 @@
   --ring: rgba(55, 184, 157, 0.25);
   --shadow: 0 10px 30px rgba(31, 42, 42, 0.08);
   --radius: 18px;
+  --ui-scale: 1;
 }
 
 * {
@@ -36,6 +37,9 @@ body {
 
 .wrap {
   width: min(1100px, 100%);
+  transform: scale(var(--ui-scale));
+  transform-origin: top center;
+  transition: transform 0.15s ease;
 }
 
 .card {
